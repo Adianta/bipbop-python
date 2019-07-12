@@ -1,12 +1,8 @@
 #!/usr/bin/env python
+from setuptools import find_packages, setup
 
-from distutils.core import setup
-
-setup(name='bipbop',
-        license='MIT',
-        version='0.2',
-        description='Official library for BIPBOP API',
-        author='Felipe Pena',
-        author_email='tech@bipbop.com.br',
-        url='https://github.com/bipbop/bipbop-python',
-        packages=['bipbop'])
+setup(
+    name="bipbop",
+    version="0.1",
+    packages=find_packages()
+)
