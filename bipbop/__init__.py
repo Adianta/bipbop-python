@@ -1,1 +1,1 @@
-import client
+from bipbop import client

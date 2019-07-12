@@ -3,8 +3,8 @@
 
 import bipbop
 
-class ServiceDiscovery:
 
+class ServiceDiscovery:
     KEY_DATABASE_NAME = "name"
     KEY_DATABASE_DESCRIPTION = "description"
     KEY_DATABASE_URL = "url"
@@ -12,7 +12,7 @@ class ServiceDiscovery:
     def __init__(self, ws, dbs):
         self.ws = ws
         self.list_dbs = dbs
-        
+
     def factory(ws, params=None):
         return ServiceDiscovery(ws, ws.post("SELECT FROM 'INFO'.'INFO'", params or []))
 

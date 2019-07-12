@@ -1,10 +1,10 @@
 # BIPBOP
 # -*- coding: utf-8 -*-
 
-from push import Push
+from bipbop.client.push import Push
+
 
 class PushJuristek(Push):
-
     PARAMETER_PUSH_JURISTEK_CALLBACK = "juristekCallback"
     PARAMETER_PUSH_JURISTEK_QUERY = "data"
 
@@ -16,7 +16,7 @@ class PushJuristek(Push):
             for key, value in params.iteritems():
                 data.append("'%s' = '%s'" % (key, value))
             query += ' ' if query.upper().find('WHERE') != -1 else ' WHERE '
-            query += ' AND '.join(data)            
+            query += ' AND '.join(data)
 
         parameters.update(params)
         parameters.update({

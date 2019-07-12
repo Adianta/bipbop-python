@@ -5,99 +5,34 @@
 
 import re
 
+
 def validate_cpf(cpf):
-    """
-    Valida CPFs, retornando apenas a string de números válida.
+    """Check CPF is valid. If it is not, return None."""
+    cpf = ''.join(re.findall(r'\d+', cpf))
+    if len(cpf) != 11 or len(set(cpf)) == 1:
+        return
+    cpf_numbers = list(map(int, cpf))
+    multipliers = [10, 9, 8, 7, 6, 5, 4, 3, 2]
+    for i in range(9, 11):
+        remainder = sum([a * b for a, b in zip(cpf_numbers[:i], multipliers)]) * 10 % 11
+        digit = 0 if remainder == 10 else remainder
+        if digit != cpf_numbers[i]:
+            return
+        multipliers.insert(0, 11)
+    return cpf
 
-    # CPFs errados
-    >>> validar_cpf('abcdefghijk')
-    False
-    >>> validar_cpf('123')
-    False
-    >>> validar_cpf('')
-    False
-    >>> validar_cpf(None)
-    False
-    >>> validar_cpf('12345678900')
-    False
-
-    # CPFs corretos
-    >>> validar_cpf('95524361503')
-    '95524361503'
-    >>> validar_cpf('955.243.615-03')
-    '95524361503'
-    >>> validar_cpf('  955 243 615 03  ')
-    '95524361503'
-    """
-    cpf = ''.join(re.findall('\d', str(cpf)))
-
-    if (not cpf) or (len(cpf) < 11):
-        return False
-
-    # Pega apenas os 9 primeiros dígitos do CPF e gera os 2 dígitos que faltam
-    inteiros = map(int, cpf)
-    novo = inteiros[:9]
-
-    while len(novo) < 11:
-        r = sum([(len(novo)+1-i)*v for i,v in enumerate(novo)]) % 11
-
-        if r > 1:
-            f = 11 - r
-        else:
-            f = 0
-        novo.append(f)
-
-    # Se o número gerado coincidir com o número original, é válido
-    if novo == inteiros:
-        return cpf
-    return False
 
 def validate_cnpj(cnpj):
-    """
-    Valida CNPJs, retornando apenas a string de números válida.
-
-    # CNPJs errados
-    >>> validar_cnpj('abcdefghijklmn')
-    False
-    >>> validar_cnpj('123')
-    False
-    >>> validar_cnpj('')
-    False
-    >>> validar_cnpj(None)
-    False
-    >>> validar_cnpj('12345678901234')
-    False
-    >>> validar_cnpj('11222333000100')
-    False
-
-    # CNPJs corretos
-    >>> validar_cnpj('11222333000181')
-    '11222333000181'
-    >>> validar_cnpj('11.222.333/0001-81')
-    '11222333000181'
-    >>> validar_cnpj('  11 222 333 0001 81  ')
-    '11222333000181'
-    """
-    cnpj = ''.join(re.findall('\d', str(cnpj)))
-
-    if (not cnpj) or (len(cnpj) < 14):
-        return False
-
-    # Pega apenas os 12 primeiros dígitos do CNPJ e gera os 2 dígitos que faltam
-    inteiros = map(int, cnpj)
-    novo = inteiros[:12]
-
-    prod = [5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2]
-    while len(novo) < 14:
-        r = sum([x*y for (x, y) in zip(novo, prod)]) % 11
-        if r > 1:
-            f = 11 - r
-        else:
-            f = 0
-        novo.append(f)
-        prod.insert(0, 6)
-
-    # Se o número gerado coincidir com o número original, é válido
-    if novo == inteiros:
-        return cnpj
-    return False
+    """Check CNPJ is valid. If it is not, return None."""
+    cnpj = ''.join(re.findall(r'\d+', cnpj))
+    if len(cnpj) != 14:
+        return
+    cnpj_numbers = list(map(int, cnpj))
+    multipliers = [5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2]
+    for i in range(12, 14):
+        remainder = sum([a * b for a, b in zip(cnpj_numbers[:i], multipliers)]) % 11
+        digit = 0 if remainder < 2 else 11 - remainder
+        if digit != cnpj_numbers[i]:
+            return
+        multipliers.insert(0, 6)
+    return cnpj

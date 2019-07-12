@@ -1,7 +1,8 @@
 import unittest
-import xml.etree.ElementTree as ET
-from bipbop.client import WebService
+
 from bipbop.client import ServiceDiscovery
+from bipbop.client import WebService
+
 
 class BipbopTest(unittest.TestCase):
     @classmethod
@@ -13,7 +14,7 @@ class BipbopTest(unittest.TestCase):
         xml = self.ws.post("SELECT FROM 'PLACA'.'CONSULTA'", {'placa': 'OGD1557'})
         self.assertFalse(xml is None)
 
-    def test_listDatabase(self):        
+    def test_listDatabase(self):
         self.assertTrue(len(list(self.sd.list_databases())) > 0)
 
     def test_getDbName(self):
@@ -34,13 +35,14 @@ class BipbopTest(unittest.TestCase):
         for db in self.sd.list_databases():
             self.assertIsNotNone(db.get('name'))
             odb = self.sd.get_database(db.get('name'))
-            self.assertIsNotNone(odb)            
+            self.assertIsNotNone(odb)
             for table in odb.list_tables():
                 self.assertIsNotNone(table.get('name'))
                 otb = odb.get_table(table.get('name'))
-                self.assertIsNotNone(otb)                
+                self.assertIsNotNone(otb)
                 for field in otb.get_fields():
                     self.assertIsNotNone(field.name())
+
 
 if __name__ == '__main__':
     suite = unittest.TestLoader().loadTestsFromTestCase(BipbopTest)

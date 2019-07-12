@@ -2,7 +2,8 @@
 # -*- coding: utf-8 -*-
 
 import bipbop
-import push
+from bipbop.client.push import Push
+
 
 class Table:
 
@@ -24,7 +25,7 @@ class Table:
     def validate_parameters(self, params):
         pass
 
-    def generate_push(self, parameters, label, push_callback, push_class=push.Push):
+    def generate_push(self, parameters, label, push_callback, push_class=Push):
         push_obj = push_class(self.ws)
         self.validate_parameters(parameters)
         query = "SELECT FROM '%s'.'%s'" % (self.db.name(), self.name())

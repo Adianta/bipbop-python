@@ -1,13 +1,13 @@
 # BIPBOP
 
-from database import Database
-from namebycpfcnpj import NameByCPFCNPJ
-from table import Table
-from field import Field
-from exception import Exception
-from webservice import WebService
-from servicediscovery import ServiceDiscovery
-from servicediscoveryjuristek import ServiceDiscoveryJuristek
-from push import Push
-from pushjuristek import PushJuristek
-from receiver import Receiver
+from bipbop.client.database import Database
+from bipbop.client.namebycpfcnpj import NameByCPFCNPJ
+from bipbop.client.table import Table
+from bipbop.client.field import Field
+from bipbop.client.exception import Exception
+from bipbop.client.webservice import WebService
+from bipbop.client.servicediscovery import ServiceDiscovery
+from bipbop.client.servicediscoveryjuristek import ServiceDiscoveryJuristek
+from bipbop.client.push import Push
+from bipbop.client.pushjuristek import PushJuristek
+from bipbop.client.receiver import Receiver
