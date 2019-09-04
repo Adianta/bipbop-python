@@ -16,7 +16,7 @@ ssl._create_default_https_context = ssl._create_unverified_context
 
 class WebService:
     FREE_APIKEY = "6057b71263c21e4ada266c9d4d4da613"
-    ENDPOINT = "irql.bipbop.com.br"
+    ENDPOINT = "irql.icheques.com.br"
     REFERRER = ""  # https://juridicocorrespondentes.com.br/";
     PARAMETER_QUERY = "q"
     PARAMETER_APIKEY = "apiKey"
